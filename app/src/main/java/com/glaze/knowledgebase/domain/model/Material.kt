@@ -9,7 +9,7 @@ data class Material(
     val attribution: Attribution
 )
 enum class MaterialCategory(val displayName: String) {
-    FLUX("Eritici"), GLASS_FORMER("Cam Oluşturucu"), STABILIZER("Dengeleyici"), OPACIFIER("Opaklaştırıcı")
+    FLUX("Eritici"), GLASS_FORMER("Cam Oluşturucu"), STABILIZER("Dengeleyici"), CLAY_BODY("Kil Bünyesi"), OPACIFIER("Opaklaştırıcı")
 }
 enum class SafetyLevel(val displayName: String) {
     SAFE("Güvenli"), CAUTION("Dikkat"), IRRITANT("Tahriş Edici"), TOXIC("Toksik")
