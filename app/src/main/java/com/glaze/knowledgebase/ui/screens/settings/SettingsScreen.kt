@@ -41,9 +41,10 @@ fun SettingsScreen(vm: SettingsViewModel = hiltViewModel()) {
         Card(Modifier.fillMaxWidth()) {
             Column(Modifier.padding(16.dp)) {
                 Text("Hakkında", style = MaterialTheme.typography.titleMedium); Spacer(Modifier.height(8.dp))
-                Text("Glaze Knowledge Base - Seramik referans uygulaması.", style = MaterialTheme.typography.bodyMedium)
+                Text("Seramik Bilgi Bankası.", style = MaterialTheme.typography.bodyMedium)
                 Text("Formül veya reçete içermez.", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 Text("Sürüm 1.0.0", style = MaterialTheme.typography.labelSmall)
+                Text("Pia Ceramic", style = MaterialTheme.typography.labelSmall)
             }
         }
     }

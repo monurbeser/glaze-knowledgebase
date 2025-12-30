@@ -1,4 +1,5 @@
 package com.glaze.knowledgebase.ui.theme
+
 import android.app.Activity
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.*
@@ -7,25 +8,84 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalView
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.sp
 import androidx.core.view.WindowCompat
 import com.glaze.knowledgebase.domain.model.ThemeMode
 
+// Seramik dokusuna uygun toprak tonları
 private val LightColorScheme = lightColorScheme(
-    primary = Color(0xFF8B5A2B), onPrimary = Color.White,
-    primaryContainer = Color(0xFFFFDCC2), onPrimaryContainer = Color(0xFF2E1500),
-    secondary = Color(0xFF755848), background = Color(0xFFFFFBFF), surface = Color(0xFFFFFBFF)
+    primary = Color(0xFF8B5A2B),
+    onPrimary = Color.White,
+    primaryContainer = Color(0xFFFFDCC2),
+    onPrimaryContainer = Color(0xFF2E1500),
+    secondary = Color(0xFF755848),
+    background = Color(0xFFFFFBFF),
+    surface = Color(0xFFFFFBFF)
 )
+
 private val DarkColorScheme = darkColorScheme(
-    primary = Color(0xFFFFB77C), onPrimary = Color(0xFF4A2800),
-    primaryContainer = Color(0xFF6A3C00), onPrimaryContainer = Color(0xFFFFDCC2),
-    secondary = Color(0xFFE6BEAB), background = Color(0xFF201A17), surface = Color(0xFF201A17)
+    primary = Color(0xFFFFB77C),
+    onPrimary = Color(0xFF4A2800),
+    primaryContainer = Color(0xFF6A3C00),
+    onPrimaryContainer = Color(0xFFFFDCC2),
+    secondary = Color(0xFFE6BEAB),
+    background = Color(0xFF201A17),
+    surface = Color(0xFF201A17)
+)
+
+// Şık ve Estetik Tipografi Tanımları
+val AppTypography = Typography(
+    // Büyük Başlıklar (Anasayfa ve Detay İsimleri) - Sanatsal Serif Font
+    headlineLarge = TextStyle(
+        fontFamily = FontFamily.Serif,
+        fontWeight = FontWeight.Bold,
+        fontSize = 32.sp,
+        lineHeight = 40.sp,
+        letterSpacing = (-0.5).sp
+    ),
+    // Kart Başlıkları
+    titleMedium = TextStyle(
+        fontFamily = FontFamily.SansSerif,
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 18.sp,
+        lineHeight = 24.sp,
+        letterSpacing = 0.1.sp
+    ),
+    // Ana Okuma Metinleri - Okunaklı Sans-Serif
+    bodyLarge = TextStyle(
+        fontFamily = FontFamily.SansSerif,
+        fontWeight = FontWeight.Normal,
+        fontSize = 16.sp,
+        lineHeight = 26.sp, // Okunabilirliği artırmak için satır arası açıldı
+        letterSpacing = 0.5.sp
+    ),
+    // Alt Bar Yazıları - Küçük ve derli toplu (Sığma sorununu çözer)
+    labelSmall = TextStyle(
+        fontFamily = FontFamily.SansSerif,
+        fontWeight = FontWeight.Medium,
+        fontSize = 11.sp, // Hammadde yazısının sığması için optimize edildi
+        lineHeight = 16.sp,
+        letterSpacing = 0.5.sp
+    )
 )
 
 @Composable
-fun GlazeKnowledgeBaseTheme(themeMode: ThemeMode = ThemeMode.SYSTEM, content: @Composable () -> Unit) {
-    val darkTheme = when (themeMode) { ThemeMode.SYSTEM -> isSystemInDarkTheme(); ThemeMode.LIGHT -> false; ThemeMode.DARK -> true }
+fun GlazeKnowledgeBaseTheme(
+    themeMode: ThemeMode = ThemeMode.SYSTEM,
+    content: @Composable () -> Unit
+) {
+    val darkTheme = when (themeMode) {
+        ThemeMode.SYSTEM -> isSystemInDarkTheme()
+        ThemeMode.LIGHT -> false
+        ThemeMode.DARK -> true
+    }
+
     val colorScheme = if (darkTheme) DarkColorScheme else LightColorScheme
     val view = LocalView.current
+
     if (!view.isInEditMode) {
         SideEffect {
             val window = (view.context as Activity).window
@@ -33,9 +93,15 @@ fun GlazeKnowledgeBaseTheme(themeMode: ThemeMode = ThemeMode.SYSTEM, content: @C
             WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = !darkTheme
         }
     }
-    MaterialTheme(colorScheme = colorScheme, content = content)
+
+    MaterialTheme(
+        colorScheme = colorScheme,
+        typography = AppTypography, // Yeni şık fontları buraya bağladık
+        content = content
+    )
 }
 
+// Güvenlik Renkleri
 val SafetyToxic = Color(0xFFD32F2F)
 val SafetyCaution = Color(0xFFFFA000)
 val SafetySafe = Color(0xFF388E3C)

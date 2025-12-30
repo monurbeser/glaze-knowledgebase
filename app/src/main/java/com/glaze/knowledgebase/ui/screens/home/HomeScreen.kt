@@ -1,7 +1,9 @@
 package com.glaze.knowledgebase.ui.screens.home
+
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
@@ -11,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp // Hatanın çözümü için eklenen kritik satır
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -36,6 +39,7 @@ data class MenuItem(val title: String, val subtitle: String, val icon: ImageVect
 @Composable
 fun HomeScreen(navController: NavController, viewModel: HomeViewModel = hiltViewModel()) {
     val isLoading by viewModel.isLoading.collectAsStateWithLifecycle()
+
     val menuItems = listOf(
         MenuItem("Hammaddeler", "Eriticiler, cam oluşturucular", Icons.Default.Science, Screen.Materials.route),
         MenuItem("Renk Vericiler", "Oksitler ve pigmentler", Icons.Default.Palette, Screen.Colorants.route),
@@ -43,30 +47,98 @@ fun HomeScreen(navController: NavController, viewModel: HomeViewModel = hiltView
         MenuItem("Pişirim", "Sıcaklık ve atmosfer", Icons.Default.LocalFireDepartment, Screen.Firing.route),
         MenuItem("Yüzey Efektleri", "Kristal, crawling", Icons.Default.Texture, Screen.SurfaceEffects.route),
         MenuItem("Güvenlik", "Malzeme güvenliği", Icons.Default.HealthAndSafety, Screen.Safety.route),
-        MenuItem("Sözlük", "Seramik terimleri", Icons.Default.MenuBook, Screen.Glossary.route) ,
-                MenuItem("Hakkında", "Uygulama bilgileri", Icons.Default.Info, Screen.Settings.route)
-
+        MenuItem("Sözlük", "Seramik terimleri", Icons.Default.MenuBook, Screen.Glossary.route),
+        MenuItem("Hakkında", "Uygulama bilgileri", Icons.Default.Info, Screen.Settings.route)
     )
+
     if (isLoading) {
         Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-            Column(horizontalAlignment = Alignment.CenterHorizontally) { CircularProgressIndicator(); Spacer(Modifier.height(16.dp)); Text("Hazırlanıyor…") }
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                CircularProgressIndicator()
+                Spacer(Modifier.height(16.dp))
+                Text("Hazırlanıyor…")
+            }
         }
     } else {
-        Column(Modifier.fillMaxSize().padding(16.dp)) {
-            Text("Glaze Knowledge Base", style = MaterialTheme.typography.headlineLarge)
-            Text("Seramik referans uygulaması", style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        Column(
+            Modifier
+                .fillMaxSize()
+                .padding(16.dp)
+        ) {
+            // Başlık Bölümü
+            Text(
+                text = "Seramik Bilgi Bankası",
+                style = MaterialTheme.typography.headlineLarge
+            )
+            Text(
+                text = "Hammaddeler, Sır Türleri, Renk Vericiler, Pişirim Türleri Hakkında Pratik Bilgiler",
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+
             Spacer(Modifier.height(24.dp))
-            LazyVerticalGrid(columns = GridCells.Fixed(2), horizontalArrangement = Arrangement.spacedBy(12.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+
+            // Orta Bölüm: Kartlar
+            LazyVerticalGrid(
+                columns = GridCells.Fixed(2),
+                horizontalArrangement = Arrangement.spacedBy(12.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp),
+                modifier = Modifier.weight(1f)
+            ) {
                 items(menuItems) { item ->
-                    Card(Modifier.fillMaxWidth().aspectRatio(1.1f).clickable { navController.navigate(item.route) }) {
-                        Column(Modifier.fillMaxSize().padding(16.dp), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
-                            Icon(item.icon, null, Modifier.size(40.dp), tint = MaterialTheme.colorScheme.primary)
+                    Card(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .aspectRatio(1.1f)
+                            .clickable { navController.navigate(item.route) },
+                        shape = RoundedCornerShape(24.dp),
+                        colors = CardDefaults.cardColors(
+                            containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)
+                        )
+                    ) {
+                        Column(
+                            Modifier.fillMaxSize().padding(12.dp),
+                            verticalArrangement = Arrangement.Center,
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            Icon(
+                                imageVector = item.icon,
+                                contentDescription = null,
+                                modifier = Modifier.size(32.dp),
+                                tint = MaterialTheme.colorScheme.primary
+                            )
                             Spacer(Modifier.height(8.dp))
-                            Text(item.title, style = MaterialTheme.typography.titleSmall, textAlign = TextAlign.Center)
-                            Text(item.subtitle, style = MaterialTheme.typography.bodySmall, textAlign = TextAlign.Center, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                            Text(
+                                text = item.title,
+                                style = MaterialTheme.typography.titleMedium,
+                                textAlign = TextAlign.Center
+                            )
+                            Text(
+                                text = item.subtitle,
+                                style = MaterialTheme.typography.bodySmall,
+                                textAlign = TextAlign.Center,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
                         }
                     }
                 }
+            }
+
+            // Alt Bölüm: Daraltılmış Sorumluluk Beyanı
+            Box(
+                modifier = Modifier.fillMaxWidth(),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = "Sorumluluk Beyanı: Bu uygulama bilgilendirme amaçlıdır. Kimyasal kullanımında yerel güvenlik talimatlarına uyunuz. Geliştirici, bu bilgilerin kullanımından doğabilecek sonuçlardan sorumlu tutulamaz.",
+                    // .sp birimi artık yukarıdaki import sayesinde tanınacak
+                    style = MaterialTheme.typography.labelSmall.copy(fontSize = 9.sp, lineHeight = 12.sp),
+                    color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f),
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier
+                        .fillMaxWidth(0.75f) // Yazıyı ekranın ortasında dar bir şerit yapar
+                        .padding(top = 16.dp, bottom = 4.dp)
+                )
             }
         }
     }
