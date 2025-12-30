@@ -43,7 +43,9 @@ fun HomeScreen(navController: NavController, viewModel: HomeViewModel = hiltView
         MenuItem("Pişirim", "Sıcaklık ve atmosfer", Icons.Default.LocalFireDepartment, Screen.Firing.route),
         MenuItem("Yüzey Efektleri", "Kristal, crawling", Icons.Default.Texture, Screen.SurfaceEffects.route),
         MenuItem("Güvenlik", "Malzeme güvenliği", Icons.Default.HealthAndSafety, Screen.Safety.route),
-        MenuItem("Sözlük", "Seramik terimleri", Icons.Default.MenuBook, Screen.Glossary.route)
+        MenuItem("Sözlük", "Seramik terimleri", Icons.Default.MenuBook, Screen.Glossary.route) ,
+                MenuItem("Hakkında", "Uygulama bilgileri", Icons.Default.Info, Screen.Settings.route)
+
     )
     if (isLoading) {
         Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
