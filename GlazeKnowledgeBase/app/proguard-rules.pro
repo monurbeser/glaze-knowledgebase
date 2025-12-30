@@ -1,0 +1,8 @@
+-keep class com.glaze.knowledgebase.data.local.entity.** { *; }
+-keepattributes Signature
+-keepattributes *Annotation*
+-keep class com.google.gson.** { *; }
+-keep class com.glaze.knowledgebase.data.seed.** { *; }
+-keep class dagger.hilt.** { *; }
+-keep class javax.inject.** { *; }
+-keep class * extends dagger.hilt.android.lifecycle.HiltViewModel { *; }
