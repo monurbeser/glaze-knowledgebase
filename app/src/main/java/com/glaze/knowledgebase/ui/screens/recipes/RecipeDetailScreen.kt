@@ -1,27 +1,38 @@
+package com.glaze.knowledgebase.ui.screens.recipes
+
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import com.glaze.knowledgebase.Recipe
+import com.glaze.knowledgebase.Ingredient
+import com.glaze.knowledgebase.R
+
 @Composable
 fun RecipeDetailScreen(recipe: Recipe) {
     val context = LocalContext.current
-
-    // Görseli drawable içinden isme göre buluyoruz
     val imageResId = remember(recipe.image_name) {
         context.resources.getIdentifier(recipe.image_name, "drawable", context.packageName)
     }
 
-    LazyColumn(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp)
-    ) {
-        // 1. Sır Görseli (Pişmiş Çıktı)
+    LazyColumn(modifier = Modifier.fillMaxSize().padding(16.dp)) {
         item {
             Card(
                 shape = RoundedCornerShape(16.dp),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(250.dp)
+                modifier = Modifier.fillMaxWidth().height(250.dp)
             ) {
                 Image(
-                    painter = painterResource(id = if (imageResId != 0) imageResId else R.drawable.placeholder_glaze),
+                    painter = painterResource(id = if (imageResId != 0) imageResId else R.drawable.ic_launcher_background),
                     contentDescription = recipe.name,
                     contentScale = ContentScale.Crop,
                     modifier = Modifier.fillMaxSize()
@@ -30,7 +41,6 @@ fun RecipeDetailScreen(recipe: Recipe) {
             Spacer(modifier = Modifier.height(16.dp))
         }
 
-        // 2. Başlık ve Bilgi Kartları (Cone & Atmosphere)
         item {
             Text(text = recipe.name, style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Bold)
             Row(modifier = Modifier.padding(vertical = 8.dp)) {
@@ -38,10 +48,9 @@ fun RecipeDetailScreen(recipe: Recipe) {
                 Spacer(modifier = Modifier.width(8.dp))
                 InfoBadge(text = recipe.atmosphere, color = Color(0xFF4A6572))
             }
-            Divider(modifier = Modifier.padding(vertical = 12.dp))
+            HorizontalDivider(modifier = Modifier.padding(vertical = 12.dp))
         }
 
-        // 3. Ana Reçete (Ingredients)
         item {
             Text("Ana Reçete (Base)", style = MaterialTheme.typography.titleMedium, color = Color.Gray)
             recipe.ingredients.forEach { ingredient ->
@@ -50,7 +59,6 @@ fun RecipeDetailScreen(recipe: Recipe) {
             Spacer(modifier = Modifier.height(16.dp))
         }
 
-        // 4. Eklemeler (Additives/Colorants)
         if (recipe.additives.isNotEmpty()) {
             item {
                 Text("Eklemeler (Additives)", style = MaterialTheme.typography.titleMedium, color = Color.Gray)
@@ -61,7 +69,6 @@ fun RecipeDetailScreen(recipe: Recipe) {
             }
         }
 
-        // 5. Talimatlar
         if (recipe.instructions.isNotEmpty()) {
             item {
                 Text("Notlar ve Talimatlar", style = MaterialTheme.typography.titleMedium, color = Color.Gray)
@@ -78,9 +85,7 @@ fun RecipeDetailScreen(recipe: Recipe) {
 @Composable
 fun IngredientRow(ingredient: Ingredient, isAdditive: Boolean = false) {
     Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 4.dp),
+        modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Text(text = ingredient.name, style = MaterialTheme.typography.bodyLarge)

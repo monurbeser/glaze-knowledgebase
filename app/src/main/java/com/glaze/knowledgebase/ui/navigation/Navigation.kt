@@ -8,6 +8,8 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavType
@@ -23,16 +25,18 @@ import com.glaze.knowledgebase.ui.screens.safety.*
 import com.glaze.knowledgebase.ui.screens.settings.*
 import com.glaze.knowledgebase.ui.screens.surfaceeffects.*
 import com.glaze.knowledgebase.ui.screens.detail.*
+import com.glaze.knowledgebase.ui.screens.recipes.RecipeDetailScreen
+import com.glaze.knowledgebase.ui.screens.recipes.RecipeListScreen
+import com.glaze.knowledgebase.ui.screens.recipes.RecipeViewModel
 
 sealed class Screen(val route: String, val title: String, val icon: ImageVector, val selectedIcon: ImageVector) {
-    // Alt Bar Ögeleri
     data object Home : Screen("home", "Ana Sayfa", Icons.Outlined.Home, Icons.Filled.Home)
     data object Materials : Screen("materials", "Hammadde", Icons.Outlined.Science, Icons.Filled.Science)
+    data object Recipes : Screen("recipes", "Reçeteler", Icons.Outlined.ReceiptLong, Icons.Filled.ReceiptLong)
     data object Colorants : Screen("colorants", "Renk", Icons.Outlined.Palette, Icons.Filled.Palette)
     data object GlazeTypes : Screen("glaze_types", "Sır", Icons.Outlined.AutoAwesome, Icons.Filled.AutoAwesome)
     data object Settings : Screen("settings", "Hakkında", Icons.Outlined.Info, Icons.Filled.Info)
 
-    // Diğer Ekranlar (Referans hatası almamak için burada tanımlı olmalı)
     data object Firing : Screen("firing", "Pişirim", Icons.Outlined.LocalFireDepartment, Icons.Filled.LocalFireDepartment)
     data object SurfaceEffects : Screen("surface_effects", "Efekt", Icons.Outlined.Texture, Icons.Filled.Texture)
     data object Safety : Screen("safety", "Güvenlik", Icons.Outlined.HealthAndSafety, Icons.Filled.HealthAndSafety)
@@ -47,8 +51,10 @@ fun GlazeNavHost() {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
 
-    // Detay sayfası değilse alt barı göster
-    val showBottomBar = currentDestination?.route?.contains("detail") == false
+    // Detay sayfalarında alt barı gizle
+    val showBottomBar = currentDestination?.route?.let {
+        !it.contains("detail") && !it.contains("recipe_detail")
+    } ?: true
 
     Scaffold(
         bottomBar = {
@@ -58,29 +64,12 @@ fun GlazeNavHost() {
                         val selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true
                         NavigationBarItem(
                             icon = { Icon(if (selected) screen.selectedIcon else screen.icon, null) },
-                            label = {
-                                Text(
-                                    text = screen.title,
-                                    style = MaterialTheme.typography.labelSmall,
-                                    maxLines = 1,
-                                    softWrap = false
-                                )
-                            },
+                            label = { Text(text = screen.title, style = MaterialTheme.typography.labelSmall, maxLines = 1) },
                             selected = selected,
-                            // app/src/main/java/com/glaze/knowledgebase/ui/navigation/Navigation.kt dosyasında:
-
                             onClick = {
                                 navController.navigate(screen.route) {
-                                    // Uygulamanın başlangıç noktasına kadar olan yığını temizle
-                                    popUpTo(navController.graph.findStartDestination().id) {
-                                        saveState = true
-                                    }
-
+                                    popUpTo(navController.graph.findStartDestination().id) { saveState = true }
                                     launchSingleTop = true
-
-                                    // KRİTİK DÜZELTME:
-                                    // Eğer tıklanan buton "Ana Sayfa" ise, eski alt sayfa durumunu geri getirme (restoreState = false).
-                                    // Diğer butonlar (Hammadde, Renk vb.) için durumu korumaya devam et.
                                     restoreState = screen.route != Screen.Home.route
                                 }
                             }
@@ -104,6 +93,38 @@ fun GlazeNavHost() {
             composable(Screen.Safety.route) { SafetyScreen(navController) }
             composable(Screen.Glossary.route) { GlossaryScreen(navController) }
             composable(Screen.Settings.route) { SettingsScreen() }
+
+            // Reçete Listesi
+            composable(Screen.Recipes.route) {
+                RecipeListScreen(
+                    onRecipeClick = { recipeId ->
+                        navController.navigate("recipe_detail/$recipeId")
+                    }
+                )
+            }
+
+            // Reçete Detay (Fix: State takibi eklendi)
+            composable(
+                route = "recipe_detail/{recipeId}",
+                arguments = listOf(navArgument("recipeId") { type = NavType.IntType })
+            ) { backStackEntry ->
+                val recipeId = backStackEntry.arguments?.getInt("recipeId")
+                val recipeViewModel: RecipeViewModel = hiltViewModel()
+                val context = LocalContext.current
+
+                // Verileri yükle
+                LaunchedEffect(Unit) {
+                    recipeViewModel.loadRecipes(context)
+                }
+
+                val recipes by recipeViewModel.recipes.collectAsState()
+                val selectedRecipe = recipes.find { it.id == recipeId }
+
+                if (selectedRecipe != null) {
+                    RecipeDetailScreen(recipe = selectedRecipe)
+                }
+            }
+
             composable(
                 "detail/{type}/{id}",
                 arguments = listOf(

@@ -1,4 +1,4 @@
-package com.glaze.knowledgebase.domain.model // Paket adını kendi yapına göre kontrol et
+package com.glaze.knowledgebase
 
 data class Recipe(
     val id: Int,

@@ -43,6 +43,7 @@ fun HomeScreen(navController: NavController, viewModel: HomeViewModel = hiltView
     val menuItems = listOf(
         MenuItem("Hammaddeler", "Eriticiler, cam oluşturucular", Icons.Default.Science, Screen.Materials.route),
         MenuItem("Renk Vericiler", "Oksitler ve pigmentler", Icons.Default.Palette, Screen.Colorants.route),
+        MenuItem("Sır Reçeteleri", "Reçeteler ve hesaplayıcı", Icons.Default.ReceiptLong, Screen.Recipes.route),
         MenuItem("Sır Tipleri", "Mat, parlak, saten", Icons.Default.AutoAwesome, Screen.GlazeTypes.route),
         MenuItem("Pişirim", "Sıcaklık ve atmosfer", Icons.Default.LocalFireDepartment, Screen.Firing.route),
         MenuItem("Yüzey Efektleri", "Kristal, crawling", Icons.Default.Texture, Screen.SurfaceEffects.route),

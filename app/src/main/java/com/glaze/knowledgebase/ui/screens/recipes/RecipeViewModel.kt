@@ -2,7 +2,7 @@ package com.glaze.knowledgebase.ui.screens.recipes
 
 import android.content.Context
 import androidx.lifecycle.ViewModel
-import com.glaze.knowledgebase.domain.model.Recipe
+import com.glaze.knowledgebase.Recipe
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,7 +19,7 @@ class RecipeViewModel @Inject constructor() : ViewModel() {
     // JSON dosyasını okuyan fonksiyon
     fun loadRecipes(context: Context) {
         try {
-            val jsonString = context.assets.open("seeds/recipes.json")
+            val jsonString = context.assets.open("seed/recipes.json")
                 .bufferedReader()
                 .use { it.readText() }
 
