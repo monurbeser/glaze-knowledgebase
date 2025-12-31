@@ -1,0 +1,98 @@
+[
+  {
+    "id": 1,
+    "name": "CH Sapphire Blue",
+    "cone": "Cone 6",
+    "atmosphere": "Oxidation",
+    "ingredients": [
+      {"name": "Frit 3134", "amount": 39.2},
+      {"name": "Custer Feldspar", "amount": 23.5},
+      {"name": "EPK (Kaolin)", "amount": 23.5},
+      {"name": "Silica (Quartz)", "amount": 13.8}
+    ],
+    "additives": [
+      {"name": "Rutile", "amount": 4.0},
+      {"name": "Cobalt Carbonate", "amount": 2.0}
+    ],
+    "instructions": "",
+    "image_name": "glaze_sapphire_blue"
+  },
+  {
+    "id": 2,
+    "name": "Temmoku Gold (Teadust)",
+    "cone": "Cone 6",
+    "atmosphere": "Oxidation",
+    "ingredients": [
+      {"name": "Cornwall Stone", "amount": 67.4},
+      {"name": "Whiting", "amount": 9.0},
+      {"name": "Silica", "amount": 6.2},
+      {"name": "Dolomite", "amount": 7.9},
+      {"name": "Gerstley Borate (Sub Frit 169)", "amount": 3.4},
+      {"name": "Lithium Carbonate", "amount": 6.2}
+    ],
+    "additives": [
+      {"name": "Red Iron Oxide (RIO)", "amount": 11.2}
+    ],
+    "instructions": "Alisa Liskin Clausen reçetesidir.",
+    "image_name": "glaze_temmoku_gold"
+  },
+  {
+    "id": 3,
+    "name": "Red-Black (Reduction Red)",
+    "cone": "Cone 6-10",
+    "atmosphere": "Reduction",
+    "ingredients": [
+      {"name": "Gerstley Borate", "amount": 14.56},
+      {"name": "Whiting", "amount": 11.07},
+      {"name": "Custer Feldspar", "amount": 23.43},
+      {"name": "Kona F-4 Feldspar", "amount": 23.43},
+      {"name": "EPK Kaolin", "amount": 2.88},
+      {"name": "Silica", "amount": 24.63}
+    ],
+    "additives": [
+      {"name": "Copper Carbonate", "amount": 0.60},
+      {"name": "Red Iron Oxide", "amount": 1.00},
+      {"name": "Tin Oxide", "amount": 1.00}
+    ],
+    "instructions": "Süt kıvamında karıştırılmalıdır. Kalın uygulandığında akıcı olabilir. Kırmızı renk için indirgemeli pişirim (reduction) şarttır.",
+    "image_name": "glaze_red_black"
+  },
+  {
+    "id": 4,
+    "name": "Darby Satin Black Matte",
+    "cone": "Cone 06-04",
+    "atmosphere": "Oxidation",
+    "ingredients": [
+      {"name": "Gerstley Borate", "amount": 30.0},
+      {"name": "Spodumene", "amount": 50.0},
+      {"name": "Silica", "amount": 20.0}
+    ],
+    "additives": [
+      {"name": "Mason Stain #6600 Black", "amount": 10.0}
+    ],
+    "instructions": "Pete Pinnell reçetesidir. Red Rock Red çamur gövdesi ile çok iyi sonuç verir.",
+    "image_name": "glaze_satin_black"
+  },
+  {
+    "id": 5,
+    "name": "Barium Blue Matte Crater",
+    "cone": "Cone 6-8",
+    "atmosphere": "Oxidation",
+    "ingredients": [
+      {"name": "Nepheline Syenite", "amount": 60.0},
+      {"name": "Barium Carbonate", "amount": 20.0},
+      {"name": "Titanium Dioxide", "amount": 10.0},
+      {"name": "Silica", "amount": 10.0},
+      {"name": "Ball Clay", "amount": 8.0},
+      {"name": "Silicon Carbide", "amount": 3.0},
+      {"name": "Copper Carbonate", "amount": 3.0},
+      {"name": "Lithium Carbonate", "amount": 2.0},
+      {"name": "Bentonite", "amount": 2.0}
+    ],
+    "additives": [
+      {"name": "Cobalt Oxide", "amount": 0.5}
+    ],
+    "instructions": "Kraterli ve mat bir doku oluşturur. Jan's reçetesidir.",
+    "image_name": "glaze_barium_blue_crater"
+  }
+]
