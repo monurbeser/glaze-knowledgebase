@@ -85,14 +85,27 @@ fun RecipeDetailScreen(recipe: Recipe) {
 @Composable
 fun IngredientRow(ingredient: Ingredient, isAdditive: Boolean = false) {
     Row(
-        modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 4.dp),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        Text(text = ingredient.name, style = MaterialTheme.typography.bodyLarge)
+        // Malzeme isimlerini biraz daha yumuşak bir ton (griye yakın) yapmak için onSurfaceVariant kullandık
+        Text(
+            text = ingredient.name,
+            style = MaterialTheme.typography.bodyLarge,
+            color = MaterialTheme.colorScheme.onSurfaceVariant
+        )
+
+        // Miktarları (rakamları) temaya göre otomatik değişen onSurface yaptık
         Text(
             text = "${ingredient.amount}",
             fontWeight = FontWeight.Bold,
-            color = if (isAdditive) Color(0xFFD32F2F) else Color.Black
+            color = if (isAdditive) {
+                Color(0xFFD32F2F) // Katkı maddeleri için kırmızı rengi koruduk
+            } else {
+                MaterialTheme.colorScheme.onSurface // Dark mode: Açık renk / Light mode: Koyu renk
+            }
         )
     }
 }

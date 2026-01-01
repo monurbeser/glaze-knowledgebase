@@ -94,5 +94,81 @@
     ],
     "instructions": "Kraterli ve mat bir doku oluşturur. Jan's reçetesidir.",
     "image_name": "glaze_barium_blue_crater"
+  },
+  {
+  "id": 6,
+  "name": "Old Forge Glacier",
+  "cone": "6",
+  "atmosphere": "Oxidation",
+  "ingredients": [
+    { "name": "Silica", "amount": 31.0 },
+    { "name": "Nepheline Syenite", "amount": 29.0 },
+    { "name": "Gerstley Borate", "amount": 19.0 },
+    { "name": "Whiting", "amount": 15.0 },
+    { "name": "EP Kaolin", "amount": 6.0 }
+  ],
+  "additives": [
+    { "name": "Bentonite", "amount": 2.0 },
+    { "name": "Titanium Dioxide", "amount": 1.0 }
+  ],
+  "instructions": "Açık mavi, buzsu bir görünüm veren parlak sır.",
+  "image_name": "glaze_old_forge_glacier"
+},
+  {
+    "id": 7,
+    "name": "Sue's Black Velvet",
+    "cone": "6",
+    "atmosphere": "Oxidation",
+    "ingredients": [
+      { "name": "Custer Feldspar", "amount": 30.0 },
+      { "name": "Frit 3124", "amount": 28.0 },
+      { "name": "EP Kaolin", "amount": 14.0 },
+      { "name": "Whiting", "amount": 10.0 },
+      { "name": "Nepheline Syenite", "amount": 8.0 },
+      { "name": "Calcined Kaolin", "amount": 6.0 },
+      { "name": "Zinc Oxide", "amount": 4.0 }
+    ],
+    "additives": [
+      { "name": "Red Iron Oxide (RIO)", "amount": 9.0 },
+      { "name": "Cobalt Oxide", "amount": 2.0 }
+    ],
+    "instructions": "Zengin, kadifemsi bir siyah yüzey sağlar. Reçete kaynağı: glazy.org/recipes/10995",
+    "image_name": "glaze_black_velvet"
+  },
+  {
+    "id": 8,
+    "name": "M3-3 Fiske Black Crystal",
+    "cone": "10",
+    "atmosphere": "Oxidation/Reduction",
+    "ingredients": [
+      { "name": "Nepheline Syenite", "amount": 70.0 },
+      { "name": "Alberta Slip", "amount": 10.0 },
+      { "name": "Spodumene", "amount": 10.0 },
+      { "name": "Whiting", "amount": 10.0 }
+    ],
+    "additives": [
+      { "name": "Mn Dioxide", "amount": 20.0 }
+    ],
+    "instructions": "Kristal yapılı özel bir sırdır.",
+    "image_name": "glaze_fiske_black"
+  },
+  {
+    "id": 9,
+    "name": "Speckled Yellow Matte",
+    "cone": "Belirtilmemiş",
+    "atmosphere": "Oxidation",
+    "ingredients": [
+      { "name": "Gerstley Borate", "amount": 2.0 },
+      { "name": "Barium Carbonate", "amount": 15.0 },
+      { "name": "EPK", "amount": 23.0 },
+      { "name": "Spodumene", "amount": 27.0 },
+      { "name": "Wollastonite", "amount": 33.0 }
+    ],
+    "additives": [
+      { "name": "Iron Oxide", "amount": 2.0 },
+      { "name": "Tin Oxide", "amount": 4.0 }
+    ],
+    "instructions": "Benekli sarı mat bir yüzey sağlar.",
+    "image_name": "glaze_speckled_yellow"
   }
 ]
